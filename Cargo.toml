@@ -11,3 +11,10 @@ repository = "https://github.com/prodbysky/pa_simple"
 keywords = ["pulseaudio", "audio", "api"]
 
 [dependencies]
+
+[lib]
+name = "simple_pa"
+path = "src/lib.rs"
+proc-macro = false
+crate-type = ["lib"]
+required-features = []
