@@ -1,0 +1,13 @@
+[package]
+name = "simple_pa"
+version = "0.1.0"
+edition = "2024"
+authors = ["sky kyrbynyt@gmail.com"]
+license = "MIT"
+description = "Zero crates.io dependency simple api for interacting with the pulseaudio-simple api"
+readme = "README.md"
+homepage = "https://github.com/prodbysky/pa_simple"
+repository = "https://github.com/prodbysky/pa_simple"
+keywords = ["pulseaudio", "audio", "api"]
+
+[dependencies]
