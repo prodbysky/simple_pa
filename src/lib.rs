@@ -129,7 +129,7 @@ impl<T: PSimple> Simple<T> {
         stream_name: &str,
         direction: StreamDirection,
         sample_spec: SampleSpec,
-    ) -> Result<Self, String> {
+    ) -> Result<Self, &'static str> {
         let c_string = std::ffi::CString::new(stream_name).expect("Failed to create CString");
 
         let mut sam_raw = sample_spec.into_c();
@@ -162,7 +162,7 @@ impl<T: PSimple> Simple<T> {
     }
 
     /// Write `bytes.len()` number of samples to pulse
-    pub fn write(&mut self, bytes: &[T]) -> Result<(), String> {
+    pub fn write(&mut self, bytes: &[T]) -> Result<(), &'static str> {
         fn as_bytes<T>(slice: &[T]) -> &[u8] {
             unsafe {
                 std::slice::from_raw_parts_mut(
@@ -190,13 +190,13 @@ impl<T: PSimple> Simple<T> {
     }
 
     /// Write a single sample (discouraged?)
-    pub fn write_single(&mut self, b: T) -> Result<(), String> {
+    pub fn write_single(&mut self, b: T) -> Result<(), &'static str> {
         self.write(&[b])
     }
 
     /// Drain (wait until all data has been processed by pulseaudio) the pulseaudio simple api
     /// object
-    pub fn drain(&mut self) -> Result<(), String> {
+    pub fn drain(&mut self) -> Result<(), &'static str> {
         let mut err: c_int = 0;
         unsafe {
             pa_simple_drain(self.raw_handle, &mut err);
