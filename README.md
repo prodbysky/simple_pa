@@ -1,17 +1,11 @@
 # pulseaudio-simple-rs
+- Idiomatic Rust wrapper around `pa_simple_*`  
 
 A small, minimal, and type-safe Rust wrapper around the PulseAudio Simple API (`libpulse-simple`).  
 This crate provides an ergonomic interface for basic audio playback without requiring the full asynchronous PulseAudio API.
 
 Status: Experimental - covers only the Simple API.  
 Use case: Quick audio output/input where low latency or advanced routing is not required.
-
-## Features
-
-- Idiomatic Rust wrapper around `pa_simple_*`  
-- Generic sample formats via the `PSimple` trait (`u8`, `i16`, `i32`, `f32`)  
-- RAII resource management (`pa_simple_free` on drop)  
-- Minimal API surface: `Simple::new()`, `write()`, `write_single()`, `drain()`  
 
 ## Requirements
 
