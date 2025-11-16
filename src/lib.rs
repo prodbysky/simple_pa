@@ -193,7 +193,7 @@ impl<T: PSimple> Simple<T> {
 
     /// Write a single sample (discouraged?)
     pub fn write_single(&mut self, b: T) -> Result<(), String> {
-        self.write(&mut [b])
+        self.write(&[b])
     }
 
     /// Drain (wait until all data has been processed by pulseaudio) the pulseaudio simple api
