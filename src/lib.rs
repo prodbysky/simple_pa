@@ -26,7 +26,7 @@ unsafe extern "C" {
         attr: *const c_void,
         err: *mut c_int,
     ) -> PaSimpleRaw;
-    fn pa_simple_write(simple: PaSimpleRaw, data: *mut c_void, len: usize, err: *mut c_int);
+    fn pa_simple_write(simple: PaSimpleRaw, data: *const c_void, len: usize, err: *mut c_int);
     fn pa_simple_drain(simple: PaSimpleRaw, err: *mut c_int);
     fn pa_simple_free(simple: PaSimpleRaw);
 }
@@ -164,8 +164,8 @@ impl<T: PSimple> Simple<T> {
     }
 
     /// Write `bytes.len()` number of samples to pulse
-    pub fn write(&mut self, bytes: &mut [T]) -> Result<(), String> {
-        fn as_bytes<T>(slice: &mut [T]) -> &mut [u8] {
+    pub fn write(&mut self, bytes: &[T]) -> Result<(), String> {
+        fn as_bytes<T>(slice: &[T]) -> &[u8] {
             unsafe {
                 std::slice::from_raw_parts_mut(
                     slice.as_ptr() as *mut u8,
@@ -179,7 +179,7 @@ impl<T: PSimple> Simple<T> {
         unsafe {
             pa_simple_write(
                 self.raw_handle,
-                bytes as *mut [u8] as *mut c_void,
+                bytes as *const [u8] as *const c_void,
                 bytes.len(),
                 &mut err,
             );
