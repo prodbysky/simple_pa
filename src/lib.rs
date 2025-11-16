@@ -37,11 +37,9 @@ unsafe extern "C" {
 }
 
 /// Internal convenience function for error strings
-fn err_to_string(err: c_int) -> String {
+fn err_to_string(err: c_int) -> &'static str {
     unsafe {
-        std::ffi::CString::from_raw(pa_strerror(err))
-            .to_string_lossy()
-            .to_string()
+        std::ffi::CStr::from_ptr(pa_strerror(err)).to_str().unwrap()
     }
 }
 
